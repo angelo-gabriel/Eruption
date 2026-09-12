@@ -1,0 +1,78 @@
+# ==========================================
+# CMake & Ninja Build Artifacts
+# ==========================================
+build/
+build*/
+out/
+out*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CMakeUserPresets.json
+compile_commands.json
+*.ninja
+*.ninja_deps
+*.ninja_log
+
+# ==========================================
+# Visual Studio / MSVC Temporary Files
+# ==========================================
+.vs/
+*.sln.docstates
+*.suo
+*.user
+*.userosscache
+*.sln.ide
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+
+# Arquivos de Compilação e Linker
+*.obj
+*.o
+*.lib
+*.a
+*.exp
+*.ilk
+*.pdb
+*.idb
+*.manifest
+*.res
+*.exe
+*.dll
+
+# ==========================================
+# Dependências e Downloads do LightweightVK
+# ==========================================
+# Ignora as dependências de terceiros baixadas pelo deploy_deps.py
+third_party/lightweightvk/third-party/deps/
+third_party/lightweightvk/build/
+third_party/lightweightvk/out/
+
+# Assets baixados via deploy_content.py
+third_party/lightweightvk/samples/data/
+
+# Cache gerado pelos scripts bootstrap do repositório
+*.bootstrap_cache*
+
+# ==========================================
+# Shaders compilados localmente (opcional)
+# ==========================================
+*.spv
+
+# ==========================================
+# Sistema Operacional / Editores
+# ==========================================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# VS Code (caso use além do VS)
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
