@@ -76,10 +76,11 @@ cmake --build out/build/x64-release
 Vulkano/
 ├── source/
 │   ├── main.cpp          # Ponto de entrada da aplicação
-│   ├── main.vert         # Vertex shader (GLSL)
-│   ├── main.frag         # Fragment shader (GLSL)
 │   ├── Utils.h           # Declarações utilitárias
 │   └── Utils.cpp         # Leitura e compilação de shaders
+├── resources/
+│   ├── main.vert         # Vertex shader (GLSL)
+│   └── main.frag         # Fragment shader (GLSL)
 ├── third_party/
 │   └── lightweightvk/    # Submódulo Git — biblioteca LVK
 ├── CMakeLists.txt        # Configuração CMake do projeto
