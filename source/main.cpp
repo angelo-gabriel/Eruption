@@ -1,5 +1,6 @@
 #include <iostream>
 #include <minilog.h>
+#include "Utils.h"
 
 #include <GLFW/glfw3.h>
 
@@ -35,26 +36,34 @@ int main()
 	}
 	std::cout << "LightweightVK inicializado com sucesso!\n";
 
+	lvk::Holder<lvk::ShaderModuleHandle> vert = loadShaderModule(
+		ctx, SHADER_DIR "/main.vert");
+	lvk::Holder<lvk::ShaderModuleHandle> frag = loadShaderModule(
+		ctx, SHADER_DIR "/main.frag");
+	lvk::Holder<lvk::RenderPipelineHandle> rpTriangle =
+		ctx->createRenderPipeline({
+			.smVert = vert,
+			.smFrag = frag,
+			.color = { {.format = ctx->getSwapchainFormat() } } });
+
+	// Main loop
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
 
-		lvk::ICommandBuffer& cmd = ctx->acquireCommandBuffer();
+		lvk::ICommandBuffer& buf = ctx->acquireCommandBuffer();
 		lvk::TextureHandle swapchainTex = ctx->getCurrentSwapchainTexture();
 
-		cmd.cmdBeginRendering(
-			lvk::RenderPass{
-				.color = {{
-						.loadOp = lvk::LoadOp_Clear,
-						.storeOp = lvk::StoreOp_Store,
-						.clearColor = {0.1f, 0.2, 0.3f, 1.0f}
-				}}
-			},
-			lvk::Framebuffer{ .color = {{.texture = swapchainTex }} }
-		);
-		cmd.cmdEndRendering();
+		buf.cmdBeginRendering(
+			{.color = {{ .loadOp = lvk::LoadOp_Clear, .clearColor = {1, 1, 1, 1} }}},
+			{.color = {{ .texture = ctx->getCurrentSwapchainTexture() }}});
+		buf.cmdBindRenderPipeline(rpTriangle);
+		buf.cmdPushDebugGroupLabel("Render Triangle", 0xff0000ff);
+		buf.cmdDraw(3);
+		buf.cmdPopDebugGroupLabel();
+		buf.cmdEndRendering();
 
-		ctx->submit(cmd, swapchainTex);
+		ctx->submit(buf, swapchainTex);
 	}
 
 	ctx.reset();

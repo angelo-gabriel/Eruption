@@ -14,6 +14,8 @@ add_subdirectory(third_party/lightweightvk)
 
 add_executable(Vulkano
 	source/main.cpp
+	source/Utils.cpp
+	source/Utils.h
 )
 
 target_link_libraries(Vulkano PRIVATE LVKLibrary glfw)
@@ -30,6 +32,8 @@ target_include_directories(Vulkano PRIVATE
 )
 
 target_compile_definitions(Vulkano PRIVATE LVK_WITH_GLFW=1)
+target_compile_definitions(Vulkano PRIVATE
+	SHADER_DIR="${CMAKE_CURRENT_SOURCE_DIR}/resources")
 
 if(MSVC)
 	target_compile_options(Vulkano PRIVATE /permissive-)
